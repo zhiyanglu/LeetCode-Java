@@ -8,17 +8,18 @@ public class PalindromePartitioning {
 		// TODO Auto-generated method stub
 		
 	}
+
+	List<List<String>> result = new ArrayList<List<String>>();
+    List<Integer> split = new ArrayList<Integer>();
 	
     public List<List<String>> partition(String s) {
         char[] chars = s.toCharArray();
-        List<List<String>> result = new ArrayList<List<String>>();
-        List<Integer> split = new ArrayList<Integer>();
-        partition(chars, 0, result, split);
+        partition(chars, 0);
         return result;
         
     }
     
-    private void partition(char[] chars, int index, List<List<String>> result, List<Integer> split){
+    private void partition(char[] chars, int index){
         int length = chars.length;
         if(index == length){
             List<String> list = new ArrayList<String>();
@@ -44,7 +45,7 @@ public class PalindromePartitioning {
             
             if(left >= right){
                 split.add(i + 1);
-                partition(chars, i + 1, result, split);
+                partition(chars, i + 1);
                 split.remove(split.size() - 1);
             }
             
