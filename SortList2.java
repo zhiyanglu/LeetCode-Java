@@ -26,8 +26,6 @@ public class SortList2 {
 			System.out.print(p.val + " ");
 			p = p.next;
 		}
-
-
 	}
 	
 	private class MergeHelper{
