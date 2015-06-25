@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /*
  * The demons had captured the princess (P) and 
  * imprisoned her in the bottom-right corner of 
@@ -20,8 +22,59 @@ public class DungeonGame {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		int[][] a = {{0, 0}};
+		new DungeonGame().calculateMinimumHP(a);
 	}
+	
+	/*
+	 * O(mn) complexity and O(n) space DP solution
+	 */
+    public int calculateMinimumHP(int[][] dungeon) {
+    	int m = dungeon.length;
+    	int n = dungeon[0].length;
+    	int[] h = new int[n+1];
+    	Arrays.fill(h, Integer.MAX_VALUE);
+    	
+    	//only set h[n-1] = 1. Right side col is always Max_Int
+    	h[n - 1] = 1;
+
+    	for(int i = m - 1; i >= 0; i--){
+    		for(int j = n - 1; j >= 0; j--){
+    			h[j] = Math.min(h[j], h[j+1]) - dungeon[i][j];
+    			h[j] = Math.max(h[j], 1);
+    		}
+    	}
+    	return h[0];
+    	
+    }
+
+	
+	/*
+	 * Cleaner O(mn) complexity O(mn) space Solution
+	 */
+    public int calculateMinimumHP3(int[][] dungeon) {
+    	int m = dungeon.length;
+    	int n = dungeon[0].length;
+    	
+    	int[][] h = new int[m+1][n+1];
+    	for(int i = 0; i < h[m].length; i++){
+    		h[m][i] = Integer.MAX_VALUE;
+    	}
+    	for(int i = 0; i < h.length; i++){
+    		h[i][n] = Integer.MAX_VALUE;
+    	}
+    	h[m][n-1] = 1;
+    	h[m-1][n] = 1;
+    	h[m-1][n-1] = Math.max(1, -dungeon[m-1][n-1]);
+    	for(int i = m-1; m >= 0; i--){
+    		for(int j = n-1; n >= 0; j--){
+    			h[i][j] = Math.min(h[i+1][j], h[i][j+1]) - dungeon[i][j];
+    			h[i][j] = Math.max(h[i][j], 1);
+    		}
+    	}
+    	
+    	return h[0][0];
+    }
 	
 	
 	/*
@@ -30,7 +83,7 @@ public class DungeonGame {
 	 *  1. First compute the last row and last col of health[][]
 	 *  2. Compute the remaining grids
 	 */
-    public int calculateMinimumHP(int[][] dungeon) {
+    public int calculateMinimumHP2(int[][] dungeon) {
         int row = dungeon.length;
         int col = dungeon[0].length;
         
