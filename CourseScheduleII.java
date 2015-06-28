@@ -19,15 +19,75 @@ public class CourseScheduleII {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[][] pre = {{0,1},{0,2},{1,2}};
-		new CourseScheduleII().findOrder(3, pre);
+		int[] a = new CourseScheduleII().findOrder(3, pre);
+		for(int i = 0; i < a.length; i++){
+			System.out.println(a[i]);
+		}
+	}
+	
+	ArrayList<Integer> list;
+
+	/**
+	 * DFS topological sorting solution
+	 * 
+	 */
+	
+	public int[] findOrder(int numCourses, int[][] prerequisites){
+    	HashSet<Integer>[] isPre = new HashSet[numCourses];
+    	int[] incomings = new int[numCourses];
+    	for(int i = 0; i < isPre.length; i++){
+    		isPre[i] = new HashSet();
+    	}
+    	for(int i = 0; i < prerequisites.length; i++){
+    		int course = prerequisites[i][0];
+    		int pre = prerequisites[i][1];
+    		if(isPre[pre].contains(course)){	//skip duplicate case
+    			continue;
+    		}
+    		isPre[pre].add(course);    		
+    		incomings[course]++;
+    	}
+    	LinkedList<Integer> queue = new LinkedList();
+    	for(int i = 0; i < numCourses; i++){
+//    		if(incomings[i] == 0){
+    			queue.add(i);
+//    		}
+    	}
+    	list = new ArrayList();
+    	boolean[] visited = new boolean[numCourses];
+    	boolean[] visiting = new boolean[numCourses];
+    	while(!queue.isEmpty()){
+    		int course = queue.poll();
+    		if(visited[course]) continue;
+    		if(!visit(course, visited, visiting, isPre)){
+    			return new int[0];
+    		}
+    	}	
+    	
+    	int[] result = new int[numCourses];
+    	for(int i = 0; i < numCourses; i++){
+    		result[i] = list.get(i);
+    	}
+    	return result;
+	}
+	private boolean visit(int takenCourse, boolean[] visited, boolean[] visiting, HashSet[] isPre){
+		if(visiting[takenCourse])
+			return false;
+		if(!visited[takenCourse]){
+			visiting[takenCourse] = true;
+			for(int course : (HashSet<Integer>)isPre[takenCourse]){
+				if(!visit(course, visited, visiting, isPre)) return false;
+			}			
+			visiting[takenCourse] = false;
+			visited[takenCourse] = true;
+			list.add(0, takenCourse);
+		}
+		return true;
 	}
 	
 	
-	//DFS topological sorting solution
-	
-	
 	//BFS topological sorting solution
-    public int[] findOrder(int numCourses, int[][] prerequisites) {
+    public int[] findOrder2(int numCourses, int[][] prerequisites) {
 
     	HashSet<Integer>[] isPre = new HashSet[numCourses];
     	int[] incomings = new int[numCourses];
