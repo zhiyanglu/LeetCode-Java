@@ -24,6 +24,8 @@ public class ShortestPalindrome {
 	 * 2. Calculate the prefix array of new string
 	 * 3. Add s.length - (prefix[2*s.length - 1]+1) of
 	 *    tail chars in s to the front of s.
+	 *    
+	 * http://blog.csdn.net/pointbreak1/article/details/45931551
 	 * @param s
 	 * @return
 	 */
