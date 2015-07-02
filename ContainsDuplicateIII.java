@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * Given an array of integers, find out whether 
@@ -16,9 +17,32 @@ public class ContainsDuplicateIII {
 		// TODO Auto-generated method stub
 		System.out.println(-5 / 4);
 	}
+	
+	/**
+	 * O(nlogk) complexity O(k) space solution using TreeSet
+	 */
+	public boolean containsNearbyAlmostDuplicate2(int[] nums, int k, int t){
+		if(k < 1 || t < 0) return false;
+		TreeSet<Long> tree = new TreeSet<Long>();
+		
+		for(int i = 0; i < nums.length; i++){
+			long min = (long)nums[i] - t;
+			long max = (long)nums[i] + t;
+			Long floor = tree.floor(max);
+			Long ceil = tree.ceiling(min);
+			if((floor != null && floor >= min) || 
+					(ceil != null && ceil <= max))
+				return true;
+			tree.add((long)nums[i]);
+			if(i >= k){
+				tree.remove((long) nums[i - k]);
+			}
+		}
+		return false;
+	}
 
 	/**
-	 * O(n) complexity O(n) space solution using bucket
+	 * O(n) complexity O(k) space solution using bucket
 	 * Create a bucket size of t+1 to store one number
 	 * Return true if:
 	 * 	1.two numbers in a same bucket
