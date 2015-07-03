@@ -46,7 +46,7 @@ public class CountCompleteTreeNodes {
 		else
 			return height(root.left) + 1;
 	}
-	public int countNodes1(TreeNode root){
+	public int countNodes2(TreeNode root){
 		if(root == null) return 0;
 		int h = height(root);
 		int nodes = 0;
