@@ -10,6 +10,19 @@ public class PowerOfTwo {
 
 	}
 	
+	/**
+	 * if n is power of 2
+	 * n&(n-1) should be 0
+	 * @param n
+	 * @return
+	 */
+    public boolean isPowerOfTwo2(int n) {
+        if(n <= 0) return false;
+        if((n & (n-1)) == 0) return true;
+        else return false;
+    }
+
+	
     public boolean isPowerOfTwo(int n) {
         if(n < 0) return false;
         boolean bitset = false;
