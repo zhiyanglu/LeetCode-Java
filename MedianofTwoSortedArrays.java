@@ -1,3 +1,10 @@
+/**
+ * There are two sorted arrays nums1 and nums2 of size m and n respectively. 
+ * Find the median of the two sorted arrays. The overall run time complexity 
+ * should be O(log (m+n)).
+ * @author Lu
+ *
+ */
 public class MedianofTwoSortedArrays {
 	public static void main(String[] args) {
 		int[] a = {};
@@ -5,6 +12,17 @@ public class MedianofTwoSortedArrays {
 		System.out.println(findMedianSortedArrays(a, b));
 	}
 
+	
+	/**
+	 * O(log(min(m,n))) solution
+	 * binary search one array and calculate the half index in another array
+	 * i = (imin + imax) / 2
+	 * j = (m+n+1) / 2
+	 * we need to satisfy B[j - 1] <= A[i] and A[i - 1] <= B[j]
+	 *      considering edge values, we need to ensure:
+	 *      (j == 0 or i == m or B[j - 1] <= A[i]) and 
+	 *      (i == 0 or j == n or A[i - 1] <= B[j])
+	 */
 	public static double findMedianSortedArrays(int[] nums1, int[] nums2) {
 
 		int m = nums1.length;
