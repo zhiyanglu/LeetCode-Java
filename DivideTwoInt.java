@@ -17,8 +17,8 @@ public class DivideTwoInt {
         
 		long a = dividend;
         long b = divisor;
-		long m = Math.abs(a);
-        long n = Math.abs(b);
+		long m = Math.abs((long)dividend);
+        long n = Math.abs((long)divisor);
                 
         if(n == 0 || m < n){
         	return 0;
