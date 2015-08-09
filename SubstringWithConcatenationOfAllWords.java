@@ -14,10 +14,21 @@ public class SubstringWithConcatenationOfAllWords {
 	}
 	
 	
+	
+	public List<Integer> findSubstring(String s, String[] words){
+		List<Integer> res = new ArrayList();
+		if(words.length == 0 || s.length() < words.length * words[0].length()) return res;
+		
+		int N = s.length(), M = words.length, K = words[0].length();
+		
+		
+		return res;
+	}
+	
 	/**
 	 * O(nm) solution using hashmap
 	 */
-    public List<Integer> findSubstring(String s, String[] words) {
+    public List<Integer> findSubstring2(String s, String[] words) {
         List<Integer> res = new ArrayList();
         int len = words[0].length();
         if(s.length() < words.length * len) return res;
