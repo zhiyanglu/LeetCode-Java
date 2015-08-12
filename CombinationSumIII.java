@@ -25,46 +25,34 @@ public class CombinationSumIII {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(new CombinationSumIII().combinationSum3(3, 9));
+		System.out.println(new CombinationSumIII().combinationSum3(2, 18));
 	}
 	
 	
-	
-	
-	List<List<Integer>> result;
-	List<Integer> list;
+    List<List<Integer>> res;
+    List<Integer> list;
     /**
-     * Accepted backtracking solution
+     * Backtracking solution
      * @param k
      * @param n
      * @return
      */
-	public List<List<Integer>> combinationSum3(int k, int n) {
-    	
-    	result = new ArrayList<List<Integer>>();
-        list = new ArrayList<Integer>();
-        if(k == 0) return result;
-        for(int i = 1; i <= 9; i++ ){
-        	list.add(i);
-        	findSum(i, i+1, 1, k, n);
-        	list.remove(list.size() - 1);
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        res = new ArrayList();
+        list = new ArrayList();
+        combinationSum3(k, n, 1);
+        return res;
+    }
+    public void combinationSum3(int k, int n, int index){
+        if(k <= 0 || n <= 0){
+            if(k == 0 && n == 0) res.add(new ArrayList(list));
+            return;
         }
-        return result;
+        
+        for(int i = index; i < 10; i++){
+            list.add(i);
+            combinationSum3(k-1, n-i, i+1);
+            list.remove(list.size()-1);
+        }
     }
-    private void findSum(int sum, int start, int index, int k, int target){
-    	if(sum == target && index == k){
-    		result.add(new ArrayList<Integer>(list));
-    		return;
-    	}else if(!(sum < target && index < k)){
-    		return;
-    	}
-    	
-    	int end = Math.min(9, target - sum);
-    	for(int i = start; i <= end; i++){
-    		list.add(i);
-    		findSum(sum + i, i + 1, index+1, k, target);
-    		list.remove(list.size() - 1);
-    	}
-    }
-
 }
