@@ -9,6 +9,34 @@ public class WildcardMatching {
 	}
 	
 	
+	/**
+	 * DP O(mn) space solution
+	 */
+    public boolean isMatch3(String s, String p) {
+        boolean[][] match = new boolean[s.length()+1][p.length()+1];
+        match[0][0] = true;
+        for(int i = 1; i < match.length; i++){
+            match[i][0] = false;
+        }
+        for(int i = 1; i < match[0].length; i++){
+            match[0][i] = match[0][i-1] && p.charAt(i-1) == '*';
+        }
+        
+        for(int i = 1; i < match.length; i++){
+            for(int j = 1; j < match[0].length; j++){
+                if(match[i-1][j-1] && (s.charAt(i-1) == p.charAt(j-1) || p.charAt(j-1)=='?'))
+                    match[i][j] = true;
+                if(match[i-1][j] && p.charAt(j-1)=='*')
+                    match[i][j] = true;
+                if(match[i][j-1] && p.charAt(j-1)=='*')
+                    match[i][j] = true;
+            }
+        }
+        
+        return match[s.length()][p.length()];
+    }
+
+	
 	//DP solution
     public static boolean isMatch(String s, String p) {
     	if(p.replace("*", "").length() > s.length()){
