@@ -37,6 +37,10 @@ public class SurroundedRegions {
 		}
 	}
 	
+	/**
+	 * BFS iterative solution
+	 * @param board
+	 */
     public void solve(char[][] board) {
     	if(board == null || board.length == 0) return;
     	
@@ -103,17 +107,18 @@ public class SurroundedRegions {
         int n = board[0].length;
         
         for(int i = 0; i < m; i++){
-            if(board[i][0] == 'O')
-                fill(board, i, 0);
-            if(board[i][n-1] == 'O')
-                fill(board, i, n-1);
+            fill(board, i, 0);
+        }
+        for(int i = 0; i < m; i++){
+            fill(board, i, n-1);
         }
         for(int i = 0; i < n; i++){
-            if(board[0][i] == 'O')
-                fill(board, 0, i);
-            if(board[m-1][i] == 'O')
-                fill(board, m-1, i);
+            fill(board, 0, i);
         }
+        for(int i = 0; i < n; i++){
+            fill(board, m-1, i);
+        }
+    
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
                 if(board[i][j] == 'M')
@@ -125,16 +130,12 @@ public class SurroundedRegions {
         
     }
     private void fill(char[][] board, int x, int y){
-        if(x < 0 || y < 0 || x >= board.length || y >= board[0].length) 
-            return;
-        if(board[x][y] != 'O') return;
-        
+        if(board[x][y] == 'M' || board[x][y] == 'X') return;
         board[x][y] = 'M';
-        fill(board, x-1, y);
-        fill(board, x, y-1);
-        fill(board, x+1, y);
-        fill(board, x, y+1);
-
+        if(x > 1) fill(board, x-1, y);
+        if(x < board.length-2) fill(board, x+1, y);
+        if(y > 1) fill(board, x, y-1);
+        if(y < board[0].length-2) fill(board, x, y+1);
     }
 
 }
