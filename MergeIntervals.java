@@ -38,5 +38,39 @@ public class MergeIntervals {
         return list;
     }
 
+    
+    /**
+     * O(1) extra space
+     * @param intervals
+     * @return
+     */
+    public List<Interval> merge2(List<Interval> intervals) {
+        Collections.sort(intervals, new Comparator<Interval>(){
+            public int compare(Interval o1, Interval o2){
+                return o1.start - o2.start;
+            }
+        });
+        
+        Interval prev = null;
+        for(int i = 0; i < intervals.size(); i++){
+            Interval cur = intervals.get(i);
+            if(prev == null){
+                prev = cur;
+                continue;
+            }
+            if(prev.end < cur.start){
+                prev = cur;
+                continue;
+            }
+            if(prev.end >= cur.start){
+                prev.end = Math.max(prev.end, cur.end);
+                intervals.remove(i);
+                i--;
+            }
+        }
+        
+        return intervals;
+    }
+
 
 }
