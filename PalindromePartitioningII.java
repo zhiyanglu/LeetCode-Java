@@ -3,7 +3,7 @@ public class PalindromePartitioningII {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(new PalindromePartitioningII().minCut("abbac"));
+		System.out.println(new PalindromePartitioningII().minCut2("abbab"));
 	}
 	
 	
@@ -36,6 +36,35 @@ public class PalindromePartitioningII {
     	
     	return cut[0];
     }
+    
+    public int minCut2(String s) {
+        // write your code here
+        int len = s.length();
+        boolean isPal[][] = new boolean[len][len];
+        for(int i = 0; i < len; i++){
+            isPal[i][i] = true;
+        }
+        int[] minCut = new int[len];
+        
+        for(int i = 0; i < len; i++){
+            minCut[i] = i;
+            for(int j = 0; j <= i; j++){
+                if(s.charAt(j) == s.charAt(i) && (i - j <= 2 || isPal[j+1][i-1])){
+                    if(j == 0){
+                        minCut[i] = 0;
+                    }else{
+                        minCut[i] = Math.min(minCut[i], minCut[j-1] + 1);
+                    }
+                    isPal[j][i] = true;
+                }
+            }
+            
+        }
+        
+        return minCut[minCut.length - 1];
+        
+    }
+
 
 
 }

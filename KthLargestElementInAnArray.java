@@ -13,10 +13,13 @@ public class KthLargestElementInAnArray {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] a = {7, 5, 6, 1, 3, 2, 4};
+		int[] a = {7,6,5,4,3,2,1};
 		System.out.println(new KthLargestElementInAnArray().findKthLargest(a, 2));
-		
 	}
+	
+
+    
+
 	
 	/**
 	 * O(N) best case / O(N^2) worst case running time + O(1) memory solution
@@ -45,13 +48,13 @@ public class KthLargestElementInAnArray {
 	 * all elements on left of x is less than it
 	 * all elements on right of x is larger than it
 	 */
-	private int partition(int[] a, int lo, int hi){
+	public int partition(int[] a, int lo, int hi){
 		int i = lo + 1;
 		int j = hi + 1;
 		while(true){
-			//Start from left find the number that is larger than a[0]
+			//Start from left find the first number that is larger than a[0]
 			while(i <= hi && a[i] < a[lo]) i++; 
-			//Start from right find the number that is smaller than a[0]
+			//Start from right find the first number that is smaller than a[0]
 			while(j > lo && a[lo] < a[--j]);
 			//if i >= j, end search, else swap i and j
 			if(i >= j){
