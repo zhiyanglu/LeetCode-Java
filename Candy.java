@@ -3,7 +3,7 @@ public class Candy {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] rate = {1, 0, 2};
+		int[] rate = {1,2,4,3,2,1};
 		new Candy().candy(rate);
 	}
 	
