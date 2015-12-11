@@ -17,7 +17,9 @@ public class EncodeAndDecodeStrings {
 		System.out.println(new EncodeAndDecodeStrings().decode(code));
 
 	}
-
+	public static int put(){
+		return 1;
+	}
     // Encodes a list of strings to a single string.
     public String encode(List<String> strs) {
         StringBuilder sb = new StringBuilder();

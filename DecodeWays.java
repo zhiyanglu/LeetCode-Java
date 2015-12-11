@@ -3,7 +3,7 @@ public class DecodeWays {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println(new DecodeWays().numDecodings("1"));
+		System.out.println(new DecodeWays().numDecodings2("01"));
 	}
 	
 	
@@ -31,6 +31,23 @@ public class DecodeWays {
         }
         
         return m[0];
+    }
+    
+    public int numDecodings2(String s) {
+        if(s == null || s.length() == 0) return 0;
+        int[] dp = new int[s.length() + 1];
+        dp[0] = 1;
+        dp[1] = s.charAt(0) == '0' ? 0 : 1;
+        for(int i = 2; i < dp.length; i++){
+            int a = s.charAt(i - 2) - '0';
+            int b = s.charAt(i - 1) - '0';
+            dp[i] += dp[i-1];
+            if(s.charAt(i - 1) == '0') continue;
+            if(a*10 + b <= 26){
+                dp[i] += dp[i-2];
+            }
+        }
+        return dp[dp.length - 1];
     }
 
 
